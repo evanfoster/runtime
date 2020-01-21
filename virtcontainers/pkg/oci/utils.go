@@ -123,6 +123,9 @@ type RuntimeConfig struct {
 	//Determines kata processes are managed only in sandbox cgroup
 	SandboxCgroupOnly bool
 
+	// Determines if Kata creates emptyDir on the guest
+	DisableGuestEmptyDir bool
+
 	//Experimental features enabled
 	Experimental []exp.Feature
 }
