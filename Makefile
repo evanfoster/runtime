@@ -164,6 +164,7 @@ DEFMEMSLOTS := 10
 #Default number of bridges
 DEFBRIDGES := 1
 DEFDISABLEGUESTSECCOMP := true
+DEFDISABLEGUESTEMPTYDIR := false
 #Default experimental features enabled
 DEFAULTEXPFEATURES := []
 
