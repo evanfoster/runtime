@@ -441,6 +441,10 @@ disable_guest_seccomp=@DEFDISABLEGUESTSECCOMP@
 # See: https://godoc.org/github.com/kata-containers/runtime/virtcontainers#ContainerType
 sandbox_cgroup_only=@DEFSANDBOXCGROUPONLY@
 
+# If enabled, the runtime will not create Kubernetes emptyDir mounts on the guest filesystem. Instead, emptyDir mounts will
+# be created on the host and shared via 9p. This is far slower, but allows sharing of files from host to guest.
+disable_guest_empty_dir=@DEFDISABLEGUESTEMPTYDIR@
+
 # Enabled experimental feature list, format: ["a", "b"].
 # Experimental features are features not stable enough for production,
 # they may break compatibility, and are prepared for a big version bump.

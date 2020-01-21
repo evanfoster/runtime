@@ -191,7 +191,7 @@ func TestSetEphemeralStorageType(t *testing.T) {
 
 	ociMounts = append(ociMounts, mount)
 	ociSpec.Mounts = ociMounts
-	ociSpec = SetEphemeralStorageType(ociSpec)
+	ociSpec = SetEphemeralStorageType(ociSpec, false)
 
 	mountType := ociSpec.Mounts[0].Type
 	assert.Equal(mountType, "ephemeral",
@@ -411,7 +411,7 @@ func TestCreateContainerContainerConfigFail(t *testing.T) {
 	rootFs := vc.RootFs{Mounted: true}
 
 	for _, disableOutput := range []bool{true, false} {
-		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false)
+		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false, false)
 		assert.Error(err)
 		assert.False(vcmock.IsMockError(err))
 		assert.True(strings.Contains(err.Error(), containerType))
@@ -454,7 +454,7 @@ func TestCreateContainerFail(t *testing.T) {
 	rootFs := vc.RootFs{Mounted: true}
 
 	for _, disableOutput := range []bool{true, false} {
-		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false)
+		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false, false)
 		assert.Error(err)
 		assert.True(vcmock.IsMockError(err))
 		os.RemoveAll(path)
@@ -503,8 +503,9 @@ func TestCreateContainer(t *testing.T) {
 
 	rootFs := vc.RootFs{Mounted: true}
 
+
 	for _, disableOutput := range []bool{true, false} {
-		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false)
+		_, err = CreateContainer(context.Background(), testingImpl, nil, spec, rootFs, testContainerID, bundlePath, testConsole, disableOutput, false, false)
 		assert.NoError(err)
 		os.RemoveAll(path)
 	}

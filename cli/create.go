@@ -131,6 +131,8 @@ func create(ctx context.Context, containerID, bundlePath, console, pidFilePath s
 	//rootfs has been mounted by containerd shim
 	rootFs := vc.RootFs{Mounted: true}
 
+	disableGuestEmptyDir := runtimeConfig.DisableGuestEmptyDir
+
 	var process vc.Process
 	switch containerType {
 	case vc.PodSandbox:
@@ -139,7 +141,7 @@ func create(ctx context.Context, containerID, bundlePath, console, pidFilePath s
 			return err
 		}
 	case vc.PodContainer:
-		process, err = katautils.CreateContainer(ctx, vci, nil, ociSpec, rootFs, containerID, bundlePath, console, disableOutput, false)
+		process, err = katautils.CreateContainer(ctx, vci, nil, ociSpec, rootFs, containerID, bundlePath, console, disableOutput, false, disableGuestEmptyDir)
 		if err != nil {
 			return err
 		}

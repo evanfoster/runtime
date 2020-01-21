@@ -141,6 +141,7 @@ type runtime struct {
 	SandboxCgroupOnly   bool     `toml:"sandbox_cgroup_only"`
 	Experimental        []string `toml:"experimental"`
 	InterNetworkModel   string   `toml:"internetworking_model"`
+	DisableGuestEmptyDir bool    `toml:"disable_guest_empty_dir"`
 }
 
 type shim struct {
@@ -1160,6 +1161,8 @@ func LoadConfiguration(configPath string, ignoreLogging, builtIn bool) (resolved
 	}
 
 	config.DisableGuestSeccomp = tomlConf.Runtime.DisableGuestSeccomp
+
+	config.DisableGuestEmptyDir = tomlConf.Runtime.DisableGuestEmptyDir
 
 	// use no proxy if HypervisorConfig.UseVSock is true
 	if config.HypervisorConfig.UseVSock {
